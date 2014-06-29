@@ -1,0 +1,2 @@
+ferrari_car001 2000.03
+ferrari_car002 900.0
