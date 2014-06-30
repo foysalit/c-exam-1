@@ -35,13 +35,14 @@ producer *get_producers_list(char *filename);
 model *get_models_list(char *filename);
 car *get_cars_list(char *filename);
 
-void find_model(char *model_name, producer *prodlist);
+void find_models(char *producer_name, producer *prodlist);
+void find_accessories(char *model_name, producer *prodlist);
 
 
 int main(int argc, char const *argv[])
 {
 	producer *prodlist;
-	char model_query[20];
+	char search_query[20];
 
 	if(argc < 2){
 		printf("too few arguments!\n");
@@ -50,10 +51,16 @@ int main(int argc, char const *argv[])
 
 	prodlist = get_producers_list(argv[1]);
 
+	/*
 	printf("Which model are you looking for?\n");
-	scanf("%s", model_query);
+	scanf("%s", search_query);
 
-	find_model(model_query, prodlist);
+	find_accessories(search_query, prodlist);
+	*/
+	printf("Which producer are you looking for?\n");
+	scanf("%s", search_query);
+
+	find_models(search_query, prodlist);
 
 	return 0;
 }
@@ -152,7 +159,38 @@ car *get_cars_list(char *filename){
 	return cars;
 }
 
-void find_model(char *model_name, producer *prodlist){
+void find_models(char *producer_name, producer *prodlist){
+	producer *tproducer;
+	model *tmodel;
+	int found = 0;
+
+	printf("Looking for - %s\n", producer_name);
+
+	tproducer = prodlist;
+	while(tproducer != NULL && found == 0){
+		//printf("Producer: %s\n", tproducer->name);
+		//printf("-----------------------------\n");
+
+		if(strcmp(tproducer->name, producer_name) == 0){
+			found = 1;
+		}else{
+			tproducer = tproducer->next;
+		}
+	}
+
+	if(found == 1){
+		printf("Found the model!\n");
+		tmodel = tproducer->models;
+		while(tmodel != NULL){
+			printf("%s\n", tmodel->name);
+			tmodel = tmodel->next;
+		}
+	}else{
+		printf("Sorry the model isn't in our database!\n");
+	}
+}
+
+void find_accessories(char *model_name, producer *prodlist){
 	producer *tproducer;
 	model *tmodel;
 	car *tcar;
