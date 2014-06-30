@@ -37,6 +37,7 @@ car *get_cars_list(char *filename);
 
 void find_models(char *producer_name, producer *prodlist);
 void find_accessories(char *model_name, producer *prodlist);
+void remove_accessory(char *accessory_name, producer *prodlist);
 
 
 int main(int argc, char const *argv[])
@@ -57,6 +58,7 @@ int main(int argc, char const *argv[])
 
 	find_accessories(search_query, prodlist);
 	*/
+
 	printf("Which producer are you looking for?\n");
 	scanf("%s", search_query);
 
@@ -188,6 +190,8 @@ void find_models(char *producer_name, producer *prodlist){
 	}else{
 		printf("Sorry the model isn't in our database!\n");
 	}
+
+	return;
 }
 
 void find_accessories(char *model_name, producer *prodlist){
